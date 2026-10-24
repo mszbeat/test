@@ -1,12 +1,12 @@
 {
-  "name": "neon-maze-pacman",
-  "version": "1.0.0",
+  "name": "arcade-vault",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "A polished, dependency-free neon maze arcade game.",
+  "description": "A polished collection of browser mini games and interactive 3D experiences.",
   "scripts": {
     "start": "python3 -m http.server 4173 --bind 0.0.0.0",
     "test": "node --test tests/*.test.js",
-    "check": "node --check src/maze.js && node --check src/engine.js && node --check src/audio.js && node --check src/renderer.js && node --check src/main.js && node --test tests/*.test.js"
+    "check": "node --check games/neon-maze/src/maze.js && node --check games/neon-maze/src/engine.js && node --check games/neon-maze/src/audio.js && node --check games/neon-maze/src/renderer.js && node --check games/neon-maze/src/main.js && node --check games/relics-of-middle-earth/src/materials.js && node --check games/relics-of-middle-earth/src/artifacts.js && node --check games/relics-of-middle-earth/src/worlds.js && node --check games/relics-of-middle-earth/src/main.js && node --test tests/*.test.js"
   }
 }

@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { DIRECTIONS, GAME_STATE, GameEngine } from '../src/engine.js';
-import { Maze, RAW_MAP, reachableTiles, tileKey } from '../src/maze.js';
+import { DIRECTIONS, GAME_STATE, GameEngine } from '../games/neon-maze/src/engine.js';
+import { Maze, RAW_MAP, reachableTiles, tileKey } from '../games/neon-maze/src/maze.js';
 
 test('maze is rectangular and contains every required spawn', () => {
   const maze = new Maze();

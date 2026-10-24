@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#090604" />
+  <meta name="description" content="Explore legendary Middle-earth relics in interactive living 3D worlds." />
+  <title>Relics of Middle-earth // Interactive 3D Gallery</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../vendor/three.module.min.js"
+      }
+    }
+  </script>
+</head>
+<body data-world="mordor">
+  <div id="loading" class="loading-screen">
+    <div class="loading-mark"><span></span></div>
+    <p>FORGING THE RELICS</p>
+    <div class="loading-track"><i id="loading-bar"></i></div>
+    <small id="loading-label">AWAKENING MORDOR</small>
+  </div>
+
+  <canvas id="world" aria-label="Interactive 3D artifact viewer"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="film-grain" aria-hidden="true"></div>
+  <div class="transition-veil" aria-hidden="true"><span></span></div>
+
+  <header class="topbar">
+    <a class="back" href="../../"><i>←</i><span>ARCADE VAULT</span></a>
+    <div class="title-lockup">
+      <strong>RELICS</strong>
+      <small>OF MIDDLE-EARTH</small>
+    </div>
+    <div class="status"><i></i><span>ARCHIVE ONLINE</span></div>
+  </header>
+
+  <aside class="artifact-info" aria-live="polite">
+    <div class="chapter"><span id="chapter-number">I</span><i></i><small id="realm">MORDOR</small></div>
+    <p class="artifact-type" id="artifact-type">THE ONE RING</p>
+    <h1 id="artifact-name">THE RULING RING</h1>
+    <p class="artifact-lore" id="artifact-lore">Forged in the fires of Orodruin, a golden vessel for a dark will—its fiery inscription awakens beneath the gaze of Mount Doom.</p>
+    <div class="specs" id="specs">
+      <span><b>ORIGIN</b> ORODRUIN</span>
+      <span><b>AGE</b> SECOND AGE</span>
+      <span><b>MATERIAL</b> GOLD</span>
+    </div>
+  </aside>
+
+  <nav class="relic-rail" aria-label="Choose an artifact">
+    <button class="relic-button active" data-index="0" type="button" aria-label="View the One Ring">
+      <span>01</span><i class="icon-ring"></i><strong>ONE RING</strong><small>MORDOR</small>
+    </button>
+    <button class="relic-button" data-index="1" type="button" aria-label="View Narsil">
+      <span>02</span><i class="icon-sword"></i><strong>NARSIL</strong><small>GONDOR · NÚMENOR</small>
+    </button>
+    <button class="relic-button" data-index="2" type="button" aria-label="View Nenya">
+      <span>03</span><i class="icon-nenya"></i><strong>NENYA</strong><small>RIVENDELL</small>
+    </button>
+  </nav>
+
+  <div class="world-label" aria-hidden="true">
+    <span id="world-label-main">MORDOR</span>
+    <small id="world-label-sub">THE ASHEN LAND</small>
+  </div>
+
+  <div class="controls">
+    <div class="gesture-hint"><i class="mouse"></i><span><b>DRAG</b> ROTATE</span><span><b>SCROLL</b> ZOOM</span></div>
+    <div class="control-actions">
+      <button id="reset-camera" type="button" title="Reset camera"><i>⌖</i><span>RESET VIEW</span></button>
+      <button id="auto-rotate" class="active" type="button" aria-pressed="true" title="Toggle automatic rotation"><i>↻</i><span>AUTO ROTATE</span></button>
+      <button id="sound-toggle" type="button" aria-pressed="false" title="Toggle ambient sound"><i>◖))</i><span>SOUND</span></button>
+    </div>
+  </div>
+
+  <p class="fan-note">UNOFFICIAL FAN-MADE INTERACTIVE TRIBUTE · DRAG TO INSPECT EVERY DETAIL</p>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050510" />
+  <meta name="description" content="Neon Maze — a polished, responsive maze-chase arcade game." />
+  <title>Neon Maze // Arcade Protocol</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ambient-grid" aria-hidden="true"></div>
+  <main class="app-shell">
+    <a class="back-link" href="../../">← ARCADE VAULT</a>
+    <header class="brand-bar">
+      <div class="brand-lockup">
+        <span class="brand-kicker">ARCADE PROTOCOL</span>
+        <h1>NEON <span>MAZE</span></h1>
+      </div>
+      <div class="system-status"><i></i> SYSTEM ONLINE</div>
+    </header>
+
+    <section class="game-card" aria-label="Neon Maze game">
+      <div class="hud" aria-live="polite">
+        <div class="hud-block">
+          <span class="hud-label">SCORE</span>
+          <strong id="score">000000</strong>
+        </div>
+        <div class="hud-block hud-center">
+          <span class="hud-label">LEVEL</span>
+          <strong id="level">01</strong>
+        </div>
+        <div class="hud-block hud-right">
+          <span class="hud-label">HIGH SCORE</span>
+          <strong id="high-score">000000</strong>
+        </div>
+      </div>
+
+      <div class="canvas-frame" id="canvas-frame">
+        <canvas id="game" width="560" height="620" aria-label="Neon maze game board" role="img"></canvas>
+        <div class="scanlines" aria-hidden="true"></div>
+
+        <div class="game-overlay visible" id="overlay">
+          <div class="overlay-panel">
+            <span class="eyebrow" id="overlay-eyebrow">INITIALIZE RUN</span>
+            <h2 id="overlay-title">READY?</h2>
+            <p id="overlay-copy">Clear the grid. Outsmart the sentinels.<br />Own the high score.</p>
+            <button class="primary-action" id="primary-action" type="button">
+              <span id="primary-label">PLAY</span><kbd>ENTER</kbd>
+            </button>
+            <div class="control-hint"><span>MOVE</span> ARROW KEYS / WASD <b>·</b> <span>PAUSE</span> P</div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="game-footer">
+        <div class="lives-wrap" aria-label="Lives remaining">
+          <span class="footer-label">LIVES</span>
+          <div id="lives" class="lives"></div>
+        </div>
+        <div class="footer-actions">
+          <button class="icon-action" id="pause-button" type="button" aria-label="Pause game" title="Pause game">
+            <span class="pause-icon" aria-hidden="true"></span>
+          </button>
+          <button class="icon-action" id="sound-button" type="button" aria-label="Mute sound" title="Mute sound">
+            <span class="sound-icon" aria-hidden="true">◖))</span>
+          </button>
+        </div>
+      </footer>
+    </section>
+
+    <section class="mobile-controls" aria-label="Touch controls">
+      <button data-direction="up" aria-label="Move up">▲</button>
+      <button data-direction="left" aria-label="Move left">◀</button>
+      <button data-direction="down" aria-label="Move down">▼</button>
+      <button data-direction="right" aria-label="Move right">▶</button>
+    </section>
+
+    <p class="tip"><span>TIP //</span> Capture power cores to overload sentinels and chain bonus points.</p>
+  </main>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

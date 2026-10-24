@@ -1,18 +1,28 @@
-# Neon Maze
+# Arcade Vault
 
-A polished, dependency-free neon maze-chase arcade game built with HTML5 Canvas, modern CSS, and vanilla JavaScript.
+A growing, dependency-free-at-runtime collection of polished browser mini games and interactive experiences.
 
-## Highlights
+## Experiences
 
-- Responsive neon arcade presentation with no external assets
-- Fixed-timestep game loop for consistent movement across frame rates
-- Four sentinels with distinct targeting personalities
-- Chase, scatter, frightened, home, and eaten AI states
-- Power-core combos, bonus data core, lives, levels, and persistent high score
-- Keyboard, touch D-pad, and swipe controls
-- Procedural Web Audio sound effects with mute support
-- Pause/resume, visibility handling, and reduced-motion support
-- Unit tests for maze connectivity and core game rules
+### 01 — Neon Maze
+
+A responsive neon maze-chase arcade game with four distinct sentinels, power-core combos, procedural sound effects, touch controls, persistent high scores, and fixed-timestep movement.
+
+**Path:** [`games/neon-maze/`](games/neon-maze/)
+
+### 02 — Relics of Middle-earth
+
+A cinematic Three.js artifact gallery featuring three fully rotatable procedural 3D relics in living environments:
+
+- The One Ring — animated Mordor, Mount Doom, lava rivers, eruption smoke, ash, and embers
+- Narsil — Gondor and Númenor-inspired white city, sea, moving waterfalls, clouds, and banners
+- Nenya — Rivendell-inspired valley, elven architecture, waterfalls, river, mist, forest, and fireflies
+
+Includes orbit/zoom controls, camera reset, auto-rotation, optional procedural ambience, scene transitions, mobile controls, and adaptive rendering quality.
+
+**Path:** [`games/relics-of-middle-earth/`](games/relics-of-middle-earth/)
+
+> This is an unofficial, non-commercial fan-made interactive tribute. It is not affiliated with or endorsed by the rights holders of *The Lord of the Rings*.
 
 ## Run locally
 
@@ -22,15 +32,6 @@ npm start
 
 Then open <http://localhost:4173>.
 
-## Controls
-
-| Action | Control |
-| --- | --- |
-| Move | Arrow keys, WASD, swipe, or touch D-pad |
-| Start / restart | Enter or on-screen button |
-| Pause / resume | P, Escape, or pause button |
-| Mute | M or sound button |
-
 ## Quality checks
 
 ```bash
@@ -38,4 +39,4 @@ npm test
 npm run check
 ```
 
-The project is intentionally build-free, so it can be deployed directly to GitHub Pages or any static host.
+The site is static and deploys directly through GitHub Pages. Three.js and OrbitControls are vendored locally so the 3D gallery has no CDN dependency.

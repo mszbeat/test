@@ -72,6 +72,19 @@ button {
   padding: 34px 0 max(28px, env(safe-area-inset-bottom));
 }
 
+.back-link {
+  display: inline-flex;
+  margin: 0 0 12px 5px;
+  color: #63889b;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.back-link:hover { color: var(--cyan); }
+
 .brand-bar {
   display: flex;
   align-items: flex-end;

@@ -2,81 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#050510" />
-  <meta name="description" content="Neon Maze — a polished, responsive maze-chase arcade game." />
-  <title>Neon Maze // Arcade Protocol</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#050610" />
+  <meta name="description" content="Arcade Vault — a growing collection of polished interactive mini games and 3D experiences." />
+  <title>Arcade Vault // Mini Game Collection</title>
+  <link rel="stylesheet" href="hub.css" />
 </head>
 <body>
-  <div class="ambient-grid" aria-hidden="true"></div>
-  <main class="app-shell">
-    <header class="brand-bar">
-      <div class="brand-lockup">
-        <span class="brand-kicker">ARCADE PROTOCOL</span>
-        <h1>NEON <span>MAZE</span></h1>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="grid" aria-hidden="true"></div>
+  <main>
+    <nav>
+      <a class="logo" href="./" aria-label="Arcade Vault home">
+        <span class="logo-mark">AV</span>
+        <span><b>ARCADE</b><small>VAULT</small></span>
+      </a>
+      <div class="nav-status"><i></i><span>02 EXPERIENCES ONLINE</span></div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="kicker">CURATED INTERACTIVE EXPERIENCES</p>
+        <h1>ENTER THE<br /><em>ARCADE VAULT</em></h1>
+        <p class="intro">A growing collection of handcrafted mini games, cinematic worlds, and interactive artifacts—built to be explored.</p>
       </div>
-      <div class="system-status"><i></i> SYSTEM ONLINE</div>
+      <div class="vault-orbit" aria-hidden="true">
+        <div class="orbit orbit-a"><i></i></div>
+        <div class="orbit orbit-b"><i></i></div>
+        <div class="orbit-core"></div>
+        <span class="coordinate">X.02 / Y.24</span>
+      </div>
     </header>
 
-    <section class="game-card" aria-label="Neon Maze game">
-      <div class="hud" aria-live="polite">
-        <div class="hud-block">
-          <span class="hud-label">SCORE</span>
-          <strong id="score">000000</strong>
+    <section class="collection" aria-labelledby="collection-title">
+      <div class="section-heading">
+        <div>
+          <span>SELECT EXPERIENCE</span>
+          <h2 id="collection-title">THE COLLECTION</h2>
         </div>
-        <div class="hud-block hud-center">
-          <span class="hud-label">LEVEL</span>
-          <strong id="level">01</strong>
-        </div>
-        <div class="hud-block hud-right">
-          <span class="hud-label">HIGH SCORE</span>
-          <strong id="high-score">000000</strong>
-        </div>
+        <p>VOL. 001</p>
       </div>
 
-      <div class="canvas-frame" id="canvas-frame">
-        <canvas id="game" width="560" height="620" aria-label="Neon maze game board" role="img"></canvas>
-        <div class="scanlines" aria-hidden="true"></div>
-
-        <div class="game-overlay visible" id="overlay">
-          <div class="overlay-panel">
-            <span class="eyebrow" id="overlay-eyebrow">INITIALIZE RUN</span>
-            <h2 id="overlay-title">READY?</h2>
-            <p id="overlay-copy">Clear the grid. Outsmart the sentinels.<br />Own the high score.</p>
-            <button class="primary-action" id="primary-action" type="button">
-              <span id="primary-label">PLAY</span><kbd>ENTER</kbd>
-            </button>
-            <div class="control-hint"><span>MOVE</span> ARROW KEYS / WASD <b>·</b> <span>PAUSE</span> P</div>
+      <div class="game-grid">
+        <a class="game-card maze-card" href="games/neon-maze/">
+          <div class="card-visual maze-visual" aria-hidden="true">
+            <div class="maze-lines"></div>
+            <div class="maze-orb"></div>
+            <span class="game-number">01</span>
           </div>
-        </div>
+          <div class="card-body">
+            <div class="card-meta"><span>ARCADE · ACTION</span><b>PLAYABLE</b></div>
+            <h3>NEON MAZE</h3>
+            <p>Clear the grid, chain power cores, and outsmart four adaptive sentinels in a precision neon maze.</p>
+            <div class="card-footer"><span>ENTER GAME</span><i>↗</i></div>
+          </div>
+        </a>
+
+        <a class="game-card relic-card" href="games/relics-of-middle-earth/">
+          <div class="card-visual relic-visual" aria-hidden="true">
+            <div class="mountain"></div>
+            <div class="ring-glyph"></div>
+            <div class="embers"><i></i><i></i><i></i><i></i><i></i></div>
+            <span class="game-number">02</span>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>3D · EXPLORATION</span><b>NEW</b></div>
+            <h3>RELICS OF MIDDLE-EARTH</h3>
+            <p>Inspect three legendary artifacts in fully interactive, living cinematic worlds inspired by Middle-earth.</p>
+            <div class="card-footer"><span>ENTER EXPERIENCE</span><i>↗</i></div>
+          </div>
+        </a>
       </div>
-
-      <footer class="game-footer">
-        <div class="lives-wrap" aria-label="Lives remaining">
-          <span class="footer-label">LIVES</span>
-          <div id="lives" class="lives"></div>
-        </div>
-        <div class="footer-actions">
-          <button class="icon-action" id="pause-button" type="button" aria-label="Pause game" title="Pause game">
-            <span class="pause-icon" aria-hidden="true"></span>
-          </button>
-          <button class="icon-action" id="sound-button" type="button" aria-label="Mute sound" title="Mute sound">
-            <span class="sound-icon" aria-hidden="true">◖))</span>
-          </button>
-        </div>
-      </footer>
     </section>
 
-    <section class="mobile-controls" aria-label="Touch controls">
-      <button data-direction="up" aria-label="Move up">▲</button>
-      <button data-direction="left" aria-label="Move left">◀</button>
-      <button data-direction="down" aria-label="Move down">▼</button>
-      <button data-direction="right" aria-label="Move right">▶</button>
-    </section>
-
-    <p class="tip"><span>TIP //</span> Capture power cores to overload sentinels and chain bonus points.</p>
+    <footer>
+      <span>ARCADE VAULT // BUILD 02.24</span>
+      <span>DESIGNED FOR DESKTOP &amp; MOBILE</span>
+    </footer>
   </main>
-  <script type="module" src="src/main.js"></script>
 </body>
 </html>
