@@ -1,0 +1,12 @@
+{
+  "name": "neon-maze-pacman",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A polished, dependency-free neon maze arcade game.",
+  "scripts": {
+    "start": "python3 -m http.server 4173 --bind 0.0.0.0",
+    "test": "node --test tests/*.test.js",
+    "check": "node --check src/maze.js && node --check src/engine.js && node --check src/audio.js && node --check src/renderer.js && node --check src/main.js && node --test tests/*.test.js"
+  }
+}
