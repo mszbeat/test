@@ -26,13 +26,25 @@ export function createInscriptionTexture() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
-  ctx.font = '700 112px Georgia, serif';
+  ctx.font = 'italic 700 82px "URW Chancery L", "Apple Chancery", "Brush Script MT", cursive';
   ctx.shadowColor = '#fff';
-  ctx.shadowBlur = 7;
+  ctx.shadowBlur = 9;
   ctx.fillStyle = '#fff';
-  const glyphs = 'ᚨ ᛋᚺ ᚾᚨᛉᚷ ᛞᚢᚱᛒᚨᛏᚢᛚᚢᚲ ᚨᛋᚺ ᚾᚨᛉᚷ ᚷᛁᛗᛒᚨᛏᚢᛚ  ·  ';
-  const pattern = `${glyphs}${glyphs}${glyphs}`;
-  ctx.fillText(pattern, 20, 130);
+  const glyphs = '⋮ ash nazg durbatulûk  ·  ash nazg gimbatul  ⋆  ash nazg thrakatulûk agh burzum-ishi krimpatul  ·  ';
+  ctx.fillText(`${glyphs}${glyphs}`, 16, 126);
+  // Fine diacritic marks make the flowing inscription read as engraved script
+  // even when the platform has no dedicated Tengwar font installed.
+  ctx.lineWidth = 3;
+  for (let x = 70; x < canvas.width; x += 122) {
+    ctx.beginPath();
+    ctx.arc(x, 57 + Math.sin(x) * 7, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(x - 12, 72);
+    ctx.quadraticCurveTo(x, 48, x + 13, 72);
+    ctx.strokeStyle = '#fff';
+    ctx.stroke();
+  }
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.ClampToEdgeWrapping;
@@ -217,10 +229,11 @@ export function createSkyDome(topColor, horizonColor, bottomColor) {
         float h = vWorld.y * .5 + .5;
         vec3 color = h > .46 ? mix(uHorizon, uTop, smoothstep(.46, 1.0, h)) : mix(uBottom, uHorizon, smoothstep(0.0, .46, h));
         float haze = sin(vWorld.x * 15.0 + uTime * .015) * sin(vWorld.z * 11.0) * .018;
-        gl_FragColor = vec4(color + haze, 1.0);
+        gl_FragColor = vec4(color + haze, .46);
       }
     `,
     side: THREE.BackSide,
+    transparent: true,
     depthWrite: false,
   });
   const mesh = new THREE.Mesh(geometry, material);

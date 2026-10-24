@@ -10,6 +10,21 @@ import {
   makeWaterMaterial,
 } from './materials.js';
 
+const backgroundLoader = new THREE.TextureLoader();
+function loadCinematicBackground(name) {
+  const texture = backgroundLoader.load(new URL(`../assets/references/${name}.png`, import.meta.url).href);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  return texture;
+}
+
+const cinematicBackgrounds = {
+  mordor: loadCinematicBackground('mordor'),
+  gondor: loadCinematicBackground('gondor'),
+  rivendell: loadCinematicBackground('rivendell'),
+};
+
 function seeded(seed = 1) {
   let state = seed >>> 0;
   return () => {
@@ -65,6 +80,23 @@ function displaceGround(geometry, amount, random) {
   }
   position.needsUpdate = true;
   geometry.computeVertexNormals();
+}
+
+function blendSceneryWithBackdrop(root, opacity) {
+  const treated = new Set();
+  root.traverse((object) => {
+    if (!object.isMesh) return;
+    const materials = Array.isArray(object.material) ? object.material : [object.material];
+    for (const material of materials) {
+      if (!material || treated.has(material) || material.isShaderMaterial || material.isMeshBasicMaterial) continue;
+      if ((material.emissiveIntensity ?? 0) > 0.75) continue;
+      treated.add(material);
+      material.transparent = true;
+      material.opacity = Math.min(material.opacity ?? 1, opacity);
+      material.depthWrite = true;
+      material.needsUpdate = true;
+    }
+  });
 }
 
 function addContactShadow(root, color = 0x000000) {
@@ -149,17 +181,17 @@ function createMordor(quality) {
 
   // Warm edge light around the crater.
   const crater = new THREE.Mesh(
-    new THREE.TorusGeometry(2.55, 0.5, 20, 72),
+    new THREE.TorusGeometry(2.1, 0.28, 20, 72),
     new THREE.MeshStandardMaterial({ color: 0x23100b, emissive: 0xff2c02, emissiveIntensity: 1.6, roughness: 0.72 }),
   );
   crater.rotation.x = Math.PI / 2;
-  crater.position.set(5.5, 12.1, -34);
+  crater.position.set(5.5, 11.72, -34);
   root.add(crater);
 
   const lavaMaterial = makeLavaMaterial();
-  const craterLava = new THREE.Mesh(new THREE.CircleGeometry(2.25, 64), lavaMaterial);
+  const craterLava = new THREE.Mesh(new THREE.CircleGeometry(1.85, 64), lavaMaterial);
   craterLava.rotation.x = -Math.PI / 2;
-  craterLava.position.set(5.5, 11.9, -34);
+  craterLava.position.set(5.5, 11.66, -34);
   root.add(craterLava);
   animated.push(lavaMaterial);
 
@@ -172,7 +204,7 @@ function createMordor(quality) {
     new THREE.Vector3(0.2, -3.08, -5),
     new THREE.Vector3(1.8, -3.06, 7),
   ]);
-  const lavaRiver = new THREE.Mesh(new THREE.TubeGeometry(riverCurve, 120, 0.21, 10, false), riverMaterial);
+  const lavaRiver = new THREE.Mesh(new THREE.TubeGeometry(riverCurve, 120, 0.11, 10, false), riverMaterial);
   root.add(lavaRiver);
   animated.push(riverMaterial);
 
@@ -245,6 +277,7 @@ function createMordor(quality) {
   redRim.position.set(-10, 18, -8);
   root.add(redRim);
 
+  blendSceneryWithBackdrop(root, 0.35);
   const artifact = createOneRing();
   root.add(artifact.root);
   addContactShadow(root);
@@ -253,8 +286,8 @@ function createMordor(quality) {
     key: 'mordor',
     root,
     artifact,
-    background: new THREE.Color(0x080407),
-    fog: new THREE.FogExp2(0x120506, 0.018),
+    background: cinematicBackgrounds.mordor,
+    fog: new THREE.FogExp2(0x120506, 0.013),
     camera: { position: new THREE.Vector3(0.4, 0.35, 12.3), target: new THREE.Vector3(0, -0.1, 0), min: 6.2, max: 18.5 },
     ui: {
       chapter: 'I', realm: 'MORDOR', type: 'THE ONE RING', name: 'THE RULING RING',
@@ -372,8 +405,11 @@ function createGondor(quality) {
     }
   }
 
+  // The supplied cinematic plate already carries the monumental central keep;
+  // omit the old low-poly citadel so the long Narsil silhouette remains legible.
   const citadel = createTower(paleStone, roofMaterial, 13.5, 1.65);
   citadel.position.set(0, 6.4, -2);
+  citadel.visible = false;
   city.add(citadel);
   const palace = new THREE.Mesh(new THREE.BoxGeometry(9, 2.8, 4.5), paleStone);
   palace.position.set(0, 5.8, -1.4);
@@ -423,15 +459,16 @@ function createGondor(quality) {
   dust.material.opacity = 0.28;
   root.add(dust);
 
+  blendSceneryWithBackdrop(root, 0.2);
   const artifact = createNarsil();
   root.add(artifact.root);
   addContactShadow(root, 0x04080c);
 
   return {
     key: 'gondor', root, artifact,
-    background: new THREE.Color(0x152331),
-    fog: new THREE.FogExp2(0x34444d, 0.012),
-    camera: { position: new THREE.Vector3(0.6, 0.25, 14.3), target: new THREE.Vector3(0, 0.1, 0), min: 7.3, max: 21 },
+    background: cinematicBackgrounds.gondor,
+    fog: new THREE.FogExp2(0x34444d, 0.009),
+    camera: { position: new THREE.Vector3(0.8, 2.5, 18.8), target: new THREE.Vector3(0.45, 2.4, 0), min: 11, max: 27 },
     ui: {
       chapter: 'II', realm: 'GONDOR · NÚMENOR', type: 'THE SWORD OF ELENDIL', name: 'NARSIL',
       lore: 'A moon-bright blade of the Dúnedain, borne by Elendil and raised by Isildur. Its steel carries the memory of Númenor and the high towers of Gondor.',
@@ -578,15 +615,16 @@ function createRivendell(quality) {
   valleyGlow.position.set(0, 8, -25);
   root.add(valleyGlow);
 
+  blendSceneryWithBackdrop(root, 0.22);
   const artifact = createNenya();
   root.add(artifact.root);
   addContactShadow(root, 0x020807);
 
   return {
     key: 'rivendell', root, artifact,
-    background: new THREE.Color(0x0a1918),
-    fog: new THREE.FogExp2(0x18352f, 0.013),
-    camera: { position: new THREE.Vector3(0.4, 0.2, 10.6), target: new THREE.Vector3(0, 0, 0), min: 6.1, max: 17 },
+    background: cinematicBackgrounds.rivendell,
+    fog: new THREE.FogExp2(0x18352f, 0.0095),
+    camera: { position: new THREE.Vector3(0.4, 0.2, 9.4), target: new THREE.Vector3(0, 0.15, 0), min: 5.3, max: 16 },
     ui: {
       chapter: 'III', realm: 'RIVENDELL', type: 'THE RING OF WATER', name: 'NENYA',
       lore: 'The Ring of Adamant, borne by Galadriel: silver as starlight, crowned by a clear stone whose quiet power preserves beauty against the passing of time.',

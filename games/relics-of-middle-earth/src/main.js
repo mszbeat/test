@@ -200,9 +200,9 @@ function easeInOutCubic(value) {
 function resetCamera(animated = true) {
   const config = worlds[currentIndex].camera;
   const responsivePosition = config.position.clone();
-  if (window.innerWidth < 700) responsivePosition.z *= 1.34;
+  if (window.innerWidth < 700) responsivePosition.z *= 1.42;
   controls.minDistance = config.min;
-  controls.maxDistance = window.innerWidth < 700 ? config.max * 1.35 : config.max;
+  controls.maxDistance = window.innerWidth < 700 ? config.max * 1.42 : config.max;
   if (!animated) {
     camera.position.copy(responsivePosition);
     controls.target.copy(config.target);
